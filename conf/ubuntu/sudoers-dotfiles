@@ -2,8 +2,11 @@
 # Reference: http://ubuntuforums.org/showthread.php?t=1132821
 
 # Command aliases.
-Cmnd_Alias APT = /usr/bin/apt-get
+Cmnd_Alias APT            = /usr/bin/apt-get,/usr/bin/update-manager
+Cmnd_Alias SHUTDOWN       = /sbin/reboot,/sbin/shutdown
+Cmnd_Alias ADMINISTRATION = /bin/kill,/bin/mount,/usr/bin/apt-get
+Cmnd_Alias PACKAGES       = APT,SHUTDOWN,ADMINISTRATION
 
 # Members of the sudo and admin groups can run these commands without password.
-%sudo ALL=(ALL) ALL, NOPASSWD:APT
-%admin ALL=(ALL) ALL, NOPASSWD:APT
+%sudo ALL=(ALL) ALL, NOPASSWD:PACKAGES
+%admin ALL=(ALL) ALL, NOPASSWD:PACKAGES

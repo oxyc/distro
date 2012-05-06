@@ -94,7 +94,7 @@ if [[ "$(type -P npm)" ]]; then
   echo "Updating Npm" &&
   sudo npm update -g npm
 
-  modules=(jshint uglify-js stylus compass)
+  local modules=(jshint uglify-js stylus compass)
 
   { pushd "$(npm config get prefix)/lib/node_modules"; installed=(*); popd; } > /dev/null
   list="$(to_install "${modules[*]}" "${installed[*]}")"
@@ -107,3 +107,5 @@ if [[ "$(type -P npm)" ]]; then
     fi
   fi
 fi
+
+unset packages package list

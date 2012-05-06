@@ -16,3 +16,5 @@ fi
 # @todo
 # hosts
 # rc
+
+unset sudoers_file sudoers_src sudoers_dest

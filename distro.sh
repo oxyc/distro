@@ -19,6 +19,7 @@ exit; fi
 
 repo_dir="$HOME/distro"
 repo_git="git..."
+cache_dir="$repo_dir/caches"
 
 # If backups are needed, this is where they'll go.
 backup_dir="$HOME/./backups/$(date "+%Y_%m_%d-%H_%M_%S")/"

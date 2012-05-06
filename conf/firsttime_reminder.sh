@@ -7,9 +7,4 @@ SSH Keys
  2. Upload public key to github (https://github.com/settings/ssh)
  3. Append it to all ssh hosts authorized_keys
 
-Untracked files
-  .netrc
-  .lftp/bookmarks
-  .gist-vim
-
 EOF

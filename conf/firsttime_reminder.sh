@@ -9,5 +9,7 @@ SSH Keys
 
 Untracked files
   .netrc
+  .lftp/bookmarks
+  .gist-vim
 
 EOF

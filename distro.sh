@@ -32,8 +32,11 @@ function e_header()   { echo -e "\n\033[1m$@\033[0m"; }
 function e_success()  { echo -e " \033[1;32m✔\033[0m  $@"; }
 function e_error()    { echo -e " \033[1;31m✖\033[0m  $@"; }
 function e_arrow()    { echo -e " \033[1;33m➜\033[0m  $@"; }
+function e_notify()   { [[ $? == 0 ]] && e_success "$1" || e_error "$1"; }
 
 function die()        { e_error "$@"; exit 1; } >&2
+function escape()     { echo "$@" | sed 's/\//\\\//g'; }
+
 
 # }}}
 # General functions {{{

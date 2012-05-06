@@ -1,0 +1,4 @@
+git config --global user.name "Oskar Schöldström"
+git config --global user.email "public@oxy.fi"
+git config --global github.user oxyc
+

@@ -13,21 +13,19 @@ packages+=(
   ubuntu-restricted-extras
   nmap telnet traceroute
   curl
-  screen tmux
-  terminator rxvt-unicode-256color
+  screen tmux mosh
   ncurses-bin ncruses-base
   zip unzip rar unrar
-  lm-sensors lsof
-  mosh
+  lm-sensors lsof htop
   rsync
-  htop
 )
 
 # Lamp-stack
 packages+=(
   apache2
   php5 libapache2-mod-5 php-pear php5-cli
-  mysql-server mysql-admin
+  mysql-server
+  percona-toolkit
 )
 
 # Development tools
@@ -37,26 +35,12 @@ packages+=(
   git-core
   optipng
   phpmyadmin
-  filezilla filezilla-common
-)
-
-# Browsers
-packages+=(
-  google-chrome-beta
-  firefox
-  opera
 )
 
 # Node.js
 packages+=(
   nodejs
   npm
-)
-
-# Emulators / VM
-packages+=(
-  wine winetricks
-  virtualbox virtualbox-guest-ut virtualbox-guest-x1 virtualbox-guest-dk
 )
 
 # E-mail
@@ -66,13 +50,30 @@ packages+=(
   msmtp
 )
 
+# Browsers
+packages+=(
+  google-chrome-beta
+  firefox
+  opera
+)
+
+# Emulators / VM
+packages+=(
+  wine winetricks
+  virtualbox virtualbox-guest-ut virtualbox-guest-x1 virtualbox-guest-dk
+)
+
 # GUI stuff
 packages+=(
+  terminator rxvt-unicode-256color
   thunderbird
   marlin
   gimp
   vlc ffmpeg
   ttf-mscorefonts-ins
+  adobeair
+  filezilla filezilla-common
+  mysql-admin
 )
 
 list=()

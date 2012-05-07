@@ -38,7 +38,6 @@ function e_notify()   { [[ $? == 0 ]] && e_success "$1" || e_error "$1"; }
 function die()        { e_error "$@"; exit 1; } >&2
 function escape()     { echo "$@" | sed 's/\//\\\//g'; }
 
-
 # }}}
 # General functions {{{
 
@@ -79,25 +78,35 @@ function skip() {
   fi
 }
 
+# Prompt the user to take action
+function confirm() {
+  read -p "$1 [y/n] " -n 1
+  [[ $REPLY =~ ^[Yy]$ ]]
+}
+
 # Copy, link, init, etc.
 function do_stuff() {
   local base dest skip
   local files=($repo_dir/$1/*)
-  local queued=()
   # No files? abort.
   if (( ${#files[@]} == 0 )); then return; fi
   # Run _header function only if declared.
   [[ $(declare -f "$1_header") ]] && "$1_header"
-  # Iterate over files asking to queue them
-  for file in "${files[@]}"; do
-    base="$(basename $file)"
-    e_header "Queue $1/$base" && skip
-    if (( $? )); then
-      queued+=($file)
-    fi
-  done
+  # Run _queue function only if declared
+  [[ $(declare -f "$1_queue") ]] && {
+    local queue=()
+    for file in "${files[@]}"; do
+      base="$(basename $file)"
+      # If _queue function returns 1, add the file to the queued files
+      "$1_queue" "$base" "$file"
+      if (( $? )); then
+        queue+=($file)
+      fi
+    done
+    files=(${queue[@]})
+  }
   # Iterate over queued files.
-  for file in "${queued[@]}"; do
+  for file in "${files[@]}"; do
     base="$(basename $file)"
     dest="$HOME/$base"
     # Run _test function only if declared.
@@ -129,9 +138,13 @@ function do_stuff() {
 
 # Initialize.
 function init_do() {
-  source "$2"
+  source $2
 }
 
+function init_queue() {
+  echo
+  ! confirm "Queue $2"
+}
 # }}}
 # Copy functions {{{
 

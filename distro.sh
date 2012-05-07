@@ -83,12 +83,21 @@ function skip() {
 function do_stuff() {
   local base dest skip
   local files=($repo_dir/$1/*)
+  local queued=()
   # No files? abort.
   if (( ${#files[@]} == 0 )); then return; fi
   # Run _header function only if declared.
   [[ $(declare -f "$1_header") ]] && "$1_header"
-  # Iterate over files.
+  # Iterate over files asking to queue them
   for file in "${files[@]}"; do
+    base="$(basename $file)"
+    e_header "Queue $1/$base" && skip
+    if (( $? )); then
+      queued+=($file)
+    fi
+  done
+  # Iterate over queued files.
+  for file in "${queued[@]}"; do
     base="$(basename $file)"
     dest="$HOME/$base"
     # Run _test function only if declared.
@@ -160,7 +169,6 @@ function link_do() {
 
 # Verify the environment
 [[ $(cat /etc/issue 2> /dev/null) =~ Ubuntu ]] || die "Not running ubuntu"
-[[ $(/usr/bin/id -u) == 0 ]] || die "Not running as root"
 
 # If Git is not installed...
 if [[ ! "$(type -P git)" ]]; then
